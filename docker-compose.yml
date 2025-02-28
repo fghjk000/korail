@@ -1,5 +1,8 @@
+version: '3.8'
+
 services:
   mysql:
+    container_name: mysql
     image: mysql:8.0
     restart: always
     environment:
@@ -26,13 +29,14 @@ services:
 
   spring-boot:
     build: .
+    container_name: spring-boot
     depends_on:
       mysql:
         condition: service_healthy
       redis:
         condition: service_started
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/korail?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/korail
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ***REMOVED***
       SPRING_REDIS_HOST: redis
@@ -44,8 +48,9 @@ services:
 
   nginx:
     image: nginx:latest
+    container_name: nginx
     volumes:
-      - ./nginx.conf:/etc/nginx
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - "80:80"
     depends_on:
