@@ -25,7 +25,7 @@ jobs:
       - name: Upload JAR to Server
         uses: appleboy/scp-action@v0.1.4
         with:
-          host: 3.35.3.33              # 직접 입력한 호스트
+          host: 3.35.4.93              # 직접 입력한 호스트
           username: ubuntu              # 직접 입력한 사용자명
           key: |                        # SSH 프라이빗 키 (올바른 형식 유지)
             -----BEGIN RSA PRIVATE KEY-----
