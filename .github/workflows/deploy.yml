@@ -61,7 +61,7 @@ jobs:
       - name: Restart Docker Container
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: 3.35.3.33         # 직접 입력한 호스트
+          host: 3.35.4.93         # 직접 입력한 호스트
           username: ubuntu         # 직접 입력한 사용자명
           key: |                   # SSH 프라이빗 키 (동일 키 사용)
             -----BEGIN RSA PRIVATE KEY-----
