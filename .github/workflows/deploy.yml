@@ -27,7 +27,8 @@ jobs:
         with:
           host: 3.35.3.33              # 직접 입력한 호스트
           username: ubuntu              # 직접 입력한 사용자명
-          key: |                        # 직접 입력한 SSH 프라이빗 키 (형식 유지 필수)
+          key: |                        # SSH 프라이빗 키 (올바른 형식 유지)
+            -----BEGIN RSA PRIVATE KEY-----
             MIIEogIBAAKCAQEArfpB/mTSUe3TB/a/zM2j8/FHHssQgTWATZYtLBOU+n/i+ESV
             bmvnNf9xqsku0vdcB+6TrZ7CcVMF+bmqkHbeOcUj8ysoIv0WViHvK7IOUkxjazPc
             XYHri/yi73IVZzR+9dnjWa+K8AWVwIqMIccvVs7V4kaUCEzULeJ4Y2xd01RUjUXK
@@ -62,7 +63,8 @@ jobs:
         with:
           host: 3.35.3.33         # 직접 입력한 호스트
           username: ubuntu         # 직접 입력한 사용자명
-          key: |                   # 직접 입력한 SSH 프라이빗 키 (위와 동일하게 입력)
+          key: |                   # SSH 프라이빗 키 (동일 키 사용)
+            -----BEGIN RSA PRIVATE KEY-----
             MIIEogIBAAKCAQEArfpB/mTSUe3TB/a/zM2j8/FHHssQgTWATZYtLBOU+n/i+ESV
             bmvnNf9xqsku0vdcB+6TrZ7CcVMF+bmqkHbeOcUj8ysoIv0WViHvK7IOUkxjazPc
             XYHri/yi73IVZzR+9dnjWa+K8AWVwIqMIccvVs7V4kaUCEzULeJ4Y2xd01RUjUXK
