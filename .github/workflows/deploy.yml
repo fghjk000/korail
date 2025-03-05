@@ -56,7 +56,7 @@ jobs:
             TxSKcZaKuU76aH4+kLZUc/WjB/lqb1/+99QHfk1oLrDJchFyw54=
             -----END RSA PRIVATE KEY-----
           source: "build/libs/*.jar"
-          target: "/home/ubuntu/korail/build/libs"
+          target: "/home/ubuntu/korail"
 
       - name: Restart Docker Container
         uses: appleboy/ssh-action@v0.1.10
