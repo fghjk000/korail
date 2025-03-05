@@ -22,12 +22,10 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      - name: Check build directory
+      - name: Check for built JAR file
         run: |
-          ls -al build/libs
-
-      - name: Check current directory
-        run: pwd && ls -al build/libs/
+          echo "Checking for JAR file..."
+          ls -al /github/workspace/build/libs/
 
       - name: Check if JAR file exists
         run: |
