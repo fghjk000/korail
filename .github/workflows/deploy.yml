@@ -31,6 +31,12 @@ jobs:
       - name: List Artifact Directory
         run: ls -al build/libs
 
+      - name: Download Artifact
+        uses: actions/download-artifact@v2  # 이전에 업로드한 아티팩트를 다운로드합니다.
+        with:
+          name: app-jar  # 다운로드할 아티팩트의 이름을 'app-jar'로 설정합니다.
+          path: /home/ubuntu/korail/build/libs  # 아티팩트를 저장할 경로를 지정합니다.
+
       - name: Upload JAR to Server
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -64,7 +70,7 @@ jobs:
             HuPGz4weYUfCOoxIkj7Um2d2EFIrwjov+o1fdYCfweriTdv3xsB9TmJjdgqIgCfe
             TxSKcZaKuU76aH4+kLZUc/WjB/lqb1/+99QHfk1oLrDJchFyw54=
             -----END RSA PRIVATE KEY-----
-          source: "build/libs/korail-0.0.1-SNAPSHOT.jar"
+          source: "build/libs/*.jar"
           target: "/home/ubuntu/korail/build/libs"
 
       - name: Restart Docker Container
