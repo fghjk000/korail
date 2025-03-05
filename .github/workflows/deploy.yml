@@ -42,48 +42,13 @@ jobs:
           echo "Giving read and execute permission to build/libs directory"
           chmod +rx build/libs
 
-
       - name: Copy JAR file to Remote Server via SCP
         uses: appleboy/scp-action@v0.1.1
         with:
           host: 43.201.38.105
           username: ubuntu
           port: 22
-          key: |                        # SSH 프라이빗 키 (올바른 형식 유지)
-            ICh/qlohTo1aQ2Ic12bwapDtM9p8IS0YdDokfs/Ws70uVnb0W/kTS4/FOd+6HfAl
-            XdbQGV/gD1S+9I3kVVFrE3cFqyw3oZIUxTUNuW7c3EEYpmZNPm5r8mIVU357Xu0+
-            jBNqxHGq2PnYf7eZBJwjMQ7OlGpLSEiRIJk7WQIDAQABAoIBAHqi/yQJA+y2vVxO
-            xlLi3mCVwrFlKQQ7p26JntwEDa8quN6S0dcdfsUkhIaD/Fq//QKmXTk0wRHLGVo4
-            U5A0CmAkpDvEPy2yw60BjKt7fvbqW+Z0jzDm5RgvhNdOzuGKMriw178fq8uX1ED+
-            KNuioa8Ka+BuKelT5vlVO9Gx0M2m6NW3axKgdMl/KCpHalFVM0CeEmRRvXbmWvcx
-            u9eRe4GSvgKBqzsUquGy1Nh7O/01GjFezM0Ui/4wh1W7dpJqzj+h78q4CXq9qlv0
-            JEL17iqHirildCnd6703oDzC8i3+LH0caZd6Zm/3mjTPrtevzkAzUNrBWq58d8JE
-            T43114ECgYEA5NYQwvB+PWoc+H4qPMenhR2tC+WHoG6Fmbi6kUIJeJrANwR+TnKP
-            RTvFcgpKP9XcePiRoEftX9r0qdMK6mW1Y6x7RUzwsP5KN2+xwnJ9i6VSIwUzrcqS
-            TtBNUvAtPOS1VY6Kyj3jjgU1f4aXzSny1oJPPX4C6O0ug1j8YNdSxukCgYEAwqEi
-            TfejQfJIFtAXGtdngvC9fpwOD6wirHsS7/HwulN84zYy/VKNa0YYj/EO4SCk9VX5
-            P46nQvoVdy4lzEHsGV/4cm7JjxhK6V8epT1i922Uw6Ln89Y/UtOFExw+rpEyRzG/
-            wJ4pZsFzj5qRJhkuEKNrL8y8UxCyv/IGDRAj6vECgYBB0ZhsmYOV4omGp7M6XCrA
-            zPJS86f46xEeT9XJpfbXa5tRt8ckhSrUPQbjcDY++iI54TTxpv6NjYrFtd/z32E2
-            1At4uVKZdeqe20+DoC6gFeL0E7DzkcpXRO6YpmA8nYPSofcliHuFA9aJYYsUBbbF
-            ICHui+oGWQIB4Xxl1kkG0QKBgEeOdI1T0ZsqV6TDhusgbPcwSYsmFuleMTVW3oSH
-            YCkxDsZ+o8qNMl9RWzB4wS62EM/+dvAOI6K1TXUO62ioiARgS3jPEJ3ioZAhn6PC
-            6QLtL/epijwU9h0elVuMU+NckK6qNMS9oZ0c3L7cZicqtMv7OSpOzKKBjiaR9fWR
-            jJMRAoGASMnz3mdia8LEKh+KLwNoeGq7LU8pae74dxcRvWn2/+v0y/qeHMaaS/7Y
-            HuPGz4weYUfCOoxIkj7Um2d2EFIrwjov+o1fdYCfweriTdv3xsB9TmJjdgqIgCfe
-            TxSKcZaKuU76aH4+kLZUc/WjB/lqb1/+99QHfk1oLrDJchFyw54=
-            -----END RSA PRIVATE KEY-----
-
-          source: "./build/libs/korail-0.0.1-SNAPSHOT.jar"
-          target: "/home/ubuntu/korail/build/libs/"
-
-
-      - name: Restart Docker Container
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: 43.201.38.105
-          username: ubuntu
-          key: |                        # SSH 프라이빗 키 (올바른 형식 유지)
+          key: |
             -----BEGIN RSA PRIVATE KEY-----
             MIIEogIBAAKCAQEArfpB/mTSUe3TB/a/zM2j8/FHHssQgTWATZYtLBOU+n/i+ESV
             bmvnNf9xqsku0vdcB+6TrZ7CcVMF+bmqkHbeOcUj8ysoIv0WViHvK7IOUkxjazPc
@@ -111,7 +76,43 @@ jobs:
             HuPGz4weYUfCOoxIkj7Um2d2EFIrwjov+o1fdYCfweriTdv3xsB9TmJjdgqIgCfe
             TxSKcZaKuU76aH4+kLZUc/WjB/lqb1/+99QHfk1oLrDJchFyw54=
             -----END RSA PRIVATE KEY-----
+          source: "./build/libs/korail-0.0.1-SNAPSHOT.jar"
+          target: "/home/ubuntu/korail/build/libs/"
 
+      - name: Restart Docker Container
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: 43.201.38.105
+          username: ubuntu
+          key: |
+            -----BEGIN RSA PRIVATE KEY-----
+            MIIEogIBAAKCAQEArfpB/mTSUe3TB/a/zM2j8/FHHssQgTWATZYtLBOU+n/i+ESV
+            bmvnNf9xqsku0vdcB+6TrZ7CcVMF+bmqkHbeOcUj8ysoIv0WViHvK7IOUkxjazPc
+            XYHri/yi73IVZzR+9dnjWa+K8AWVwIqMIccvVs7V4kaUCEzULeJ4Y2xd01RUjUXK
+            ICh/qlohTo1aQ2Ic12bwapDtM9p8IS0YdDokfs/Ws70uVnb0W/kTS4/FOd+6HfAl
+            XdbQGV/gD1S+9I3kVVFrE3cFqyw3oZIUxTUNuW7c3EEYpmZNPm5r8mIVU357Xu0+
+            jBNqxHGq2PnYf7eZBJwjMQ7OlGpLSEiRIJk7WQIDAQABAoIBAHqi/yQJA+y2vVxO
+            xlLi3mCVwrFlKQQ7p26JntwEDa8quN6S0dcdfsUkhIaD/Fq//QKmXTk0wRHLGVo4
+            U5A0CmAkpDvEPy2yw60BjKt7fvbqW+Z0jzDm5RgvhNdOzuGKMriw178fq8uX1ED+
+            KNuioa8Ka+BuKelT5vlVO9Gx0M2m6NW3axKgdMl/KCpHalFVM0CeEmRRvXbmWvcx
+            u9eRe4GSvgKBqzsUquGy1Nh7O/01GjFezM0Ui/4wh1W7dpJqzj+h78q4CXq9qlv0
+            JEL17iqHirildCnd6703oDzC8i3+LH0caZd6Zm/3mjTPrtevzkAzUNrBWq58d8JE
+            T43114ECgYEA5NYQwvB+PWoc+H4qPMenhR2tC+WHoG6Fmbi6kUIJeJrANwR+TnKP
+            RTvFcgpKP9XcePiRoEftX9r0qdMK6mW1Y6x7RUzwsP5KN2+xwnJ9i6VSIwUzrcqS
+            TtBNUvAtPOS1VY6Kyj3jjgU1f4aXzSny1oJPPX4C6O0ug1j8YNdSxukCgYEAwqEi
+            TfejQfJIFtAXGtdngvC9fpwOD6wirHsS7/HwulN84zYy/VKNa0YYj/EO4SCk9VX5
+            P46nQvoVdy4lzEHsGV/4cm7JjxhK6V8epT1i922Uw6Ln89Y/UtOFExw+rpEyRzG/
+            wJ4pZsFzj5qRJhkuEKNrL8y8UxCyv/IGDRAj6vECgYBB0ZhsmYOV4omGp7M6XCrA
+            zPJS86f46xEeT9XJpfbXa5tRt8ckhSrUPQbjcDY++iI54TTxpv6NjYrFtd/z32E2
+            1At4uVKZdeqe20+DoC6gFeL0E7DzkcpXRO6YpmA8nYPSofcliHuFA9aJYYsUBbbF
+            ICHui+oGWQIB4Xxl1kkG0QKBgEeOdI1T0ZsqV6TDhusgbPcwSYsmFuleMTVW3oSH
+            YCkxDsZ+o8qNMl9RWzB4wS62EM/+dvAOI6K1TXUO62ioiARgS3jPEJ3ioZAhn6PC
+            6QLtL/epijwU9h0elVuMU+NckK6qNMS9oZ0c3L7cZicqtMv7OSpOzKKBjiaR9fWR
+            jJMRAoGASMnz3mdia8LEKh+KLwNoeGq7LU8pae74dxcRvWn2/+v0y/qeHMaaS/7Y
+            HuPGz4weYUfCOoxIkj7Um2d2EFIrwjov+o1fdYCfweriTdv3xsB9TmJjdgqIgCfe
+            TxSKcZaKuU76aH4+kLZUc/WjB/lqb1/+99QHfk1oLrDJchFyw54=
+            ... (your actual private key here) ...
+            -----END RSA PRIVATE KEY-----
           script: |
             cd /home/ubuntu/korail
             docker-compose down
