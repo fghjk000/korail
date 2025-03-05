@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>기차 예약 결제</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Arial', sans-serif;
+    }
+    .container {
+      max-width: 900px;
+    }
+    .card-body {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+    }
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+    .card-text {
+      font-size: 1.1rem;
+    }
+    .form-group label {
+      font-weight: bold;
+    }
+    .form-control[readonly] {
+      background-color: #e9ecef;
+      color: #6c757d;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    .btn-secondary {
+      background-color: #6c757d;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+    .btn-secondary:hover {
+      background-color: #5a6268;
+    }
+    .text-muted {
+      font-size: 1rem;
+      color: #6c757d;
+    }
+    .card {
+      border: none;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+    .header-section {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .header-section h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #007bff;
+    }
+    .header-section p {
+      font-size: 1.2rem;
+      color: #6c757d;
+    }
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="container mt-5">
+  <!-- 헤더 섹션 -->
+  <div class="header-section">
+    <h1>기차 예약 결제</h1>
+    <p class="text-muted">예약하신 기차의 결제 정보를 확인하고 결제를 완료해주세요.</p>
+  </div>
+
+  <!-- 기차 정보 출력 -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <h4 class="card-title text-center">기차 번호: [[${train.trainNumber}]]</h4>
+      <p class="card-text">
+        <strong>출발지:</strong> [[${train.departureStation}]] <br>
+        <strong>도착지:</strong> [[${train.arrivalStation}]] <br>
+        <strong>출발 시간:</strong> [[${train.departureTime}]] <br>
+        <strong>도착 시간:</strong> [[${train.arrivalTime}]] <br>
+      </p>
+    </div>
+  </div>
+
+  <!-- 선택한 좌석 표시 -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">선택한 좌석</h5>
+      <p class="card-text">
+        <!-- 선택된 좌석 ID를 JavaScript로 표시 -->
+        <span id="selectedSeatsList"></span>
+      </p>
+    </div>
+  </div>
+
+  <!-- 결제 폼 -->
+  <form action="/payment" method="POST">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="mb-4 text-center">결제 정보 입력</h3>
+
+        <div class="form-group">
+          <label for="paymentMethod">결제 방법</label>
+          <select id="paymentMethod" name="paymentMethod" class="form-control" required>
+            <option value="creditCard">신용카드</option>
+            <option value="bankTransfer">계좌이체</option>
+            <option value="paypal">페이팔</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="amount">결제 금액</label>
+          <input type="text" id="amount" name="amount" class="form-control" value="10000" readonly>
+        </div>
+
+        <!-- 기차 정보(기차 번호 등)을 hidden 필드로 전달 -->
+        <input type="hidden" name="trainNumber" value="${train.trainNumber}">
+
+        <!-- 선택한 좌석 ID를 hidden 필드로 전달 -->
+        <input type="hidden" id="seatIds" name="seatIds" value="${seatIds}">
+        <input type="hidden" name="seatIds" value="${seatIds}">
+
+        <!-- 버튼 그룹 -->
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary btn-lg btn-block">결제</button>
+          <button type="button" class="btn btn-secondary btn-lg btn-block" onclick="window.location.href='http://localhost:8080/reservation'">취소</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+  // URL 파라미터에서 seatIds 값을 가져오기
+  const urlParams = new URLSearchParams(window.location.search);
+  const seatIds = urlParams.get('seatIds'); // seatIds 값 가져오기
+
+  if (seatIds) {
+    const seatIdList = seatIds.split(',');  // 쉼표로 구분된 문자열을 배열로 변환
+    document.getElementById('selectedSeatsList').innerHTML = seatIdList.join(', ');  // 선택한 좌석 ID 출력
+  }
+</script>
+</body>
+</html>

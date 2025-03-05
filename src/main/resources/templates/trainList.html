@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기차 목록</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/nav.css">
+    <style>
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+        }
+
+        .add-train-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .add-train-btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="/" class="logo">홈</a>
+        <a href="/reservation">예약하기</a>
+        <a href="/admin/list">기차 목록</a>
+        <a href="/user">마이페이지</a>
+        <a href="/support">고객센터</a>
+        <a href="/logout">로그아웃</a>
+        <a href="/loginForm">로그인</a>
+    </nav>
+</header>
+
+<main>
+    <h1>기차 목록</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>기차 번호</th>
+            <th>기차 유형</th>
+            <th>출발역</th>
+            <th>도착역</th>
+            <th>출발 시간</th>
+            <th>도착 시간</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Thymeleaf 반복문을 사용하여 기차 목록을 출력 -->
+        <tr th:each="train : ${trainList}">
+            <td th:text="${train.trainNumber}"></td>
+            <td th:text="${train.trainType}"></td>
+            <td th:text="${train.departureStation}"></td>
+            <td th:text="${train.arrivalStation}"></td>
+            <td th:text="${train.departureTime}"></td>
+            <td th:text="${train.arrivalTime}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- 기차 추가 페이지로 이동하는 버튼 -->
+    <a href="/admin/trainForm" class="add-train-btn">기차 추가</a>
+</main>
+
+<footer>
+    <p>© 2025 코레일. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

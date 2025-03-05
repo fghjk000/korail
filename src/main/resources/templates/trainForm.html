@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기차 등록</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"> <!-- 기존 스타일 -->
+    <link rel="stylesheet" type="text/css" href="/css/nav.css"> <!-- nav 스타일 -->
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="/" class="logo">홈</a>
+        <a href="/reservation">예약하기</a>
+        <a href="/admin/list">기차 목록</a>
+        <a href="/user">마이페이지</a>
+        <a href="/support">고객센터</a>
+        <a href="/logout">로그아웃</a>
+        <a href="/loginForm">로그인</a>
+    </nav>
+</header>
+
+<main>
+    <h1>기차 등록</h1>
+    <form action="/admin/trainForm" method="POST">
+        <div>
+            <label for="trainNumber">기차 번호:</label>
+            <input type="text" id="trainNumber" name="trainNumber" required placeholder="기차 번호 입력">
+        </div>
+        <div>
+            <label for="trainType">기차 종류:</label>
+            <input type="text" id="trainType" name="trainType" required placeholder="기차 종류 입력">
+        </div>
+        <div>
+            <label for="departureStation">출발역:</label>
+            <input type="text" id="departureStation" name="departureStation" required placeholder="출발역 입력">
+        </div>
+        <div>
+            <label for="arrivalStation">도착역:</label>
+            <input type="text" id="arrivalStation" name="arrivalStation" required placeholder="도착역 입력">
+        </div>
+        <div>
+            <label for="departureTime">출발 시간:</label>
+            <input type="datetime-local" id="departureTime" name="departureTime" required>
+        </div>
+        <div>
+            <label for="arrivalTime">도착 시간:</label>
+            <input type="datetime-local" id="arrivalTime" name="arrivalTime" required>
+        </div>
+        <button type="submit">기차 등록</button>
+    </form>
+</main>
+
+<footer>
+    <p>© 2025 코레일. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
