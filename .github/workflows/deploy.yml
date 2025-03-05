@@ -13,12 +13,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up SSH key
+      - name: Set up SSH key and known_hosts
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+          # 호스트 키를 known_hosts에 추가
           ssh-keyscan -H 54.180.119.254 >> ~/.ssh/known_hosts
+          cat ~/.ssh/known_hosts # 확인용
         env:
           SSH_PRIVATE_KEY: ${{ secrets.KORAIL_SSH_KEY_HANSEOP }}
 
@@ -38,16 +40,14 @@ jobs:
 
       - name: Check if JAR file exists
         run: |
-          echo "Checking for korail-0.1-SNAPSHOT.jar in build/libs"
+          echo "Checking for korail-0.0.1-SNAPSHOT.jar in build/libs"
           ls -la build/libs
 
       - name: Give read permission to JAR file
-        run: |
-          chmod +r build/libs/korail-0.0.1-SNAPSHOT.jar
+        run: chmod +r build/libs/korail-0.0.1-SNAPSHOT.jar
 
       - name: Give read and execute permissions to build/libs directory
-        run: |
-          chmod +rx build/libs
+        run: chmod +rx build/libs
 
       - name: Copy JAR file to Remote Server via SCP
         uses: appleboy/scp-action@v0.1.1
