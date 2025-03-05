@@ -25,7 +25,7 @@ jobs:
       - name: Upload JAR to Server
         uses: appleboy/scp-action@v0.1.4
         with:
-          host: 13.125.219.54              # 직접 입력한 호스트
+          host: 43.201.38.105              # 직접 입력한 호스트
           username: ubuntu              # 직접 입력한 사용자명
           key: |                        # SSH 프라이빗 키 (올바른 형식 유지)
             -----BEGIN RSA PRIVATE KEY-----
@@ -55,13 +55,13 @@ jobs:
             HuPGz4weYUfCOoxIkj7Um2d2EFIrwjov+o1fdYCfweriTdv3xsB9TmJjdgqIgCfe
             TxSKcZaKuU76aH4+kLZUc/WjB/lqb1/+99QHfk1oLrDJchFyw54=
             -----END RSA PRIVATE KEY-----
-          source: "build/libs/*.jar"  # 로컬에서 빌드된 .jar 파일
-          target: "/home/ubuntu/korail/build/libs"  # 원격 서버의 .jar 저장 경로
+          source: "build/libs/*.jar"
+          target: "/home/ubuntu/korail/build/libs"
 
       - name: Restart Docker Container
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: 13.125.219.54         # 직접 입력한 호스트
+          host: 43.201.38.105         # 직접 입력한 호스트
           username: ubuntu         # 직접 입력한 사용자명
           key: |                   # SSH 프라이빗 키 (동일 키 사용)
             -----BEGIN RSA PRIVATE KEY-----
