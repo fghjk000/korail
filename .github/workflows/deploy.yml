@@ -25,7 +25,7 @@ jobs:
       - name: Upload JAR to Server
         uses: appleboy/scp-action@v0.1.4
         with:
-          host: 43.201.75.180              # 직접 입력한 호스트
+          host: 13.125.219.54              # 직접 입력한 호스트
           username: ubuntu              # 직접 입력한 사용자명
           key: |                        # SSH 프라이빗 키 (올바른 형식 유지)
             -----BEGIN RSA PRIVATE KEY-----
@@ -61,7 +61,7 @@ jobs:
       - name: Restart Docker Container
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: 43.201.75.180         # 직접 입력한 호스트
+          host: 13.125.219.54         # 직접 입력한 호스트
           username: ubuntu         # 직접 입력한 사용자명
           key: |                   # SSH 프라이빗 키 (동일 키 사용)
             -----BEGIN RSA PRIVATE KEY-----
