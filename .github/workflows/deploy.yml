@@ -34,8 +34,8 @@ jobs:
 
       - name: Create download directory and set permissions
         run: |
-          mkdir -p /home/ubuntu/korail/build/libs
-          chmod 777 /home/ubuntu/korail/build/libs
+          sudo mkdir -p /home/ubuntu/korail/build/libs
+          sudo chmod 777 /home/ubuntu/korail/build/libs
 
       - name: Download Artifact
         uses: actions/download-artifact@v4  # 이전에 업로드한 아티팩트를 다운로드합니다.
