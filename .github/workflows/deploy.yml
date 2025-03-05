@@ -50,10 +50,6 @@ jobs:
           username: ubuntu
           port: 22
           key: |                        # SSH 프라이빗 키 (올바른 형식 유지)
-            -----BEGIN RSA PRIVATE KEY-----
-            MIIEogIBAAKCAQEArfpB/mTSUe3TB/a/zM2j8/FHHssQgTWATZYtLBOU+n/i+ESV
-            bmvnNf9xqsku0vdcB+6TrZ7CcVMF+bmqkHbeOcUj8ysoIv0WViHvK7IOUkxjazPc
-            XYHri/yi73IVZzR+9dnjWa+K8AWVwIqMIccvVs7V4kaUCEzULeJ4Y2xd01RUjUXK
             ICh/qlohTo1aQ2Ic12bwapDtM9p8IS0YdDokfs/Ws70uVnb0W/kTS4/FOd+6HfAl
             XdbQGV/gD1S+9I3kVVFrE3cFqyw3oZIUxTUNuW7c3EEYpmZNPm5r8mIVU357Xu0+
             jBNqxHGq2PnYf7eZBJwjMQ7OlGpLSEiRIJk7WQIDAQABAoIBAHqi/yQJA+y2vVxO
@@ -80,7 +76,7 @@ jobs:
 
           source: "./build/libs/korail-0.0.1-SNAPSHOT.jar"
           target: "/home/ubuntu/korail/build/libs/"
-      
+
 
       - name: Restart Docker Container
         uses: appleboy/ssh-action@v0.1.10
