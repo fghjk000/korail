@@ -43,7 +43,7 @@ jobs:
           host: 43.201.38.105
           username: ubuntu
           port: 22
-          key: |                        # SSH 프라이빗 키 (올바른 형식 유지)
+          key: |
             -----BEGIN RSA PRIVATE KEY-----
             MIIEogIBAAKCAQEArfpB/mTSUe3TB/a/zM2j8/FHHssQgTWATZYtLBOU+n/i+ESV
             bmvnNf9xqsku0vdcB+6TrZ7CcVMF+bmqkHbeOcUj8ysoIv0WViHvK7IOUkxjazPc
