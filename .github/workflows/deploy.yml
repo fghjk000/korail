@@ -21,6 +21,9 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
+        with:
+          name: app-jar
+          path: build/libs/*.jar
 
       - name: Upload JAR to Server
         uses: appleboy/scp-action@v0.1.4
