@@ -42,13 +42,14 @@ jobs:
           echo "Giving read and execute permission to build/libs directory"
           chmod +rx build/libs
 
-      - name: Copy JAR file to Remote Server
-        uses: appleboy/ssh-action@v0.1.10
+
+      - name: Copy JAR file to Remote Server via SCP
+        uses: appleboy/scp-action@v0.1.1
         with:
           host: 43.201.38.105
           username: ubuntu
           port: 22
-          key: |
+          key:key: |
             -----BEGIN RSA PRIVATE KEY-----
             MIIEogIBAAKCAQEArfpB/mTSUe3TB/a/zM2j8/FHHssQgTWATZYtLBOU+n/i+ESV
             bmvnNf9xqsku0vdcB+6TrZ7CcVMF+bmqkHbeOcUj8ysoIv0WViHvK7IOUkxjazPc
@@ -76,12 +77,8 @@ jobs:
             HuPGz4weYUfCOoxIkj7Um2d2EFIrwjov+o1fdYCfweriTdv3xsB9TmJjdgqIgCfe
             TxSKcZaKuU76aH4+kLZUc/WjB/lqb1/+99QHfk1oLrDJchFyw54=
             -----END RSA PRIVATE KEY-----
-          script: |
-            mkdir -p ~/.ssh
-            ssh-keyscan -H 43.201.38.105 >> ~/.ssh/known_hosts
-            chmod 644 ~/.ssh/known_hosts
-            rsync -avz ./build/libs/korail-0.0.1-SNAPSHOT.jar ubuntu@43.201.38.105:/home/ubuntu/korail/build/libs/
-      
+          source: "./build/libs/korail-0.0.1-SNAPSHOT.jar"
+          target: "/home/ubuntu/korail/build/libs/"
       
 
       - name: Restart Docker Container
