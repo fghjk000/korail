@@ -32,6 +32,16 @@ jobs:
           echo "Checking for korail-0.0.1-SNAPSHOT.jar in build/libs"
           ls -la build/libs
 
+      - name: Give read permission to JAR file
+        run: |
+          echo "Giving read permission to korail-0.0.1-SNAPSHOT.jar"
+          chmod +r build/libs/korail-0.0.1-SNAPSHOT.jar
+
+      - name: Give read and execute permissions to build/libs directory
+        run: |
+          echo "Giving read and execute permission to build/libs directory"
+          chmod +rx build/libs
+
       - name: Copy JAR file to Remote Server
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -67,7 +77,8 @@ jobs:
             TxSKcZaKuU76aH4+kLZUc/WjB/lqb1/+99QHfk1oLrDJchFyw54=
             -----END RSA PRIVATE KEY-----
           script: |
-              scp build/libs/korail-0.0.1-SNAPSHOT.jar ubuntu@43.201.38.105:/home/ubuntu/korail/build/libs/
+            scp build/libs/korail-0.0.1-SNAPSHOT.jar ubuntu@43.201.38.105:/home/ubuntu/korail/build/libs/
+
 
       - name: Restart Docker Container
         uses: appleboy/ssh-action@v0.1.10
