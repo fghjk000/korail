@@ -64,7 +64,7 @@ jobs:
             HuPGz4weYUfCOoxIkj7Um2d2EFIrwjov+o1fdYCfweriTdv3xsB9TmJjdgqIgCfe
             TxSKcZaKuU76aH4+kLZUc/WjB/lqb1/+99QHfk1oLrDJchFyw54=
             -----END RSA PRIVATE KEY-----
-          source: "build/libs/*.jar"
+          source: "build/libs/korail-0.0.1-SNAPSHOT.jar"
           target: "/home/ubuntu/korail/build/libs"
 
       - name: Restart Docker Container
