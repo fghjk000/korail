@@ -28,6 +28,9 @@ jobs:
           name: app-jar
           path: build/libs/*.jar
 
+      - name: List Artifact Directory
+        run: ls -al build/libs
+
       - name: Upload JAR to Server
         uses: appleboy/scp-action@v0.1.4
         with:
