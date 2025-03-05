@@ -111,7 +111,6 @@ jobs:
             jJMRAoGASMnz3mdia8LEKh+KLwNoeGq7LU8pae74dxcRvWn2/+v0y/qeHMaaS/7Y
             HuPGz4weYUfCOoxIkj7Um2d2EFIrwjov+o1fdYCfweriTdv3xsB9TmJjdgqIgCfe
             TxSKcZaKuU76aH4+kLZUc/WjB/lqb1/+99QHfk1oLrDJchFyw54=
-            ... (your actual private key here) ...
             -----END RSA PRIVATE KEY-----
           script: |
             cd /home/ubuntu/korail
