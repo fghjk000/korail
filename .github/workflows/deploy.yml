@@ -23,9 +23,9 @@ jobs:
         run: ./gradlew clean build
 
       - name: Check for built JAR file
-  run: |
-    echo "Searching for korail-0.0.1-SNAPSHOT.jar..."
-    find /github/workspace -name "korail-0.0.1-SNAPSHOT.jar"
+        run: |
+          echo "Searching for korail-0.0.1-SNAPSHOT.jar..."
+          find /github/workspace -name "korail-0.0.1-SNAPSHOT.jar"
 
       - name: Check if JAR file exists
         run: |
