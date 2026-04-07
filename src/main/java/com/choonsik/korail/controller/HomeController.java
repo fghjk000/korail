@@ -11,4 +11,9 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/support")
+    public String support() {
+        return "support";
+    }
+
 }

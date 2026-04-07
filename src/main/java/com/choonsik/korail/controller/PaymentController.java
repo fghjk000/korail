@@ -1,11 +1,14 @@
 package com.choonsik.korail.controller;
 
+import com.choonsik.korail.config.auth.PrincipalDetails;
 import com.choonsik.korail.entity.Seat;
 import com.choonsik.korail.entity.Train;
+import com.choonsik.korail.entity.User;
 import com.choonsik.korail.service.PaymentService;
 import com.choonsik.korail.service.SeatService;
 import com.choonsik.korail.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,6 +56,7 @@ public class PaymentController {
         model.addAttribute("train", train);
         model.addAttribute("trainNumber", trainNumber);
         model.addAttribute("selectedSeats", selectedSeats);
+        model.addAttribute("seatIds", seatIds);
 
         return "payment"; // payment.html로 이동
     }
@@ -61,21 +65,23 @@ public class PaymentController {
     @PostMapping("/payment")
     public String processPayment(@RequestParam(value = "seatIds") String seatIds,
                                  @RequestParam(value = "paymentMethod") String paymentMethod,
-                                 @RequestParam(value = "amount") String amount) {
+                                 @RequestParam(value = "amount") String amount,
+                                 @AuthenticationPrincipal PrincipalDetails principalDetails,
+                                 RedirectAttributes redirectAttributes) {
 
         List<Long> seatIdList = Arrays.stream(seatIds.split(","))
-                .map(Long::parseLong)  // Long으로 변환
+                .map(Long::parseLong)
                 .collect(Collectors.toList());
 
+        User user = principalDetails.getUser();
+        boolean paymentSuccess = paymentService.processPayment(seatIdList, paymentMethod, amount, user);
 
-        // 결제 처리
-        boolean paymentSuccess = paymentService.processPayment(seatIdList, paymentMethod, amount);
-
-        // 결제 성공 후 처리 (예: 결제 완료 페이지로 리다이렉트)
         if (paymentSuccess) {
-            return "redirect:/"; // paymentSuccess.html로 리다이렉트
+            redirectAttributes.addFlashAttribute("paymentSuccess", true);
+            return "redirect:/user";
         } else {
-            return "payment"; // 결제 실패 페이지로 리다이렉트
+            redirectAttributes.addFlashAttribute("paymentError", "결제에 실패하였습니다. 다시 시도해주세요.");
+            return "redirect:/payment";
         }
     }
 }

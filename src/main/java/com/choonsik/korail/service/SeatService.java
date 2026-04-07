@@ -20,9 +20,9 @@ public class SeatService {
     @Autowired
     private TrainRepository trainRepository;
 
-    // 좌석 조회: 기차 ID에 해당하는 예약 가능한 좌석 목록 조회
+    // 좌석 조회: 기차 ID에 해당하는 전체 좌석 목록 조회 (예매된 좌석도 포함)
     public List<Seat> getAvailableSeats(Long trainId) {
-        return seatRepository.findByTrain_TrainIdAndStatus(trainId, SeatStatus.AVAILABLE);
+        return seatRepository.findByTrain_TrainId(trainId);
     }
 
     // 좌석 예약 처리

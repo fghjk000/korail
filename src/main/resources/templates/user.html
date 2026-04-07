@@ -32,6 +32,10 @@
 </header>
 
 <div class="page-wrap">
+    <div th:if="${paymentSuccess}" style="background:#e6f4ea; border-left:4px solid #1e7e34; padding:14px 20px; border-radius:8px; margin-bottom:20px; font-weight:700; color:#1e7e34;">
+        ✅ 결제가 완료되었습니다! 예약 내역을 확인하세요.
+    </div>
+
     <div class="user-profile-card">
         <div class="user-avatar" th:text="${#strings.substring(user.username, 0, 1)}">홍</div>
         <div>
@@ -60,10 +64,10 @@
                 </tr>
                 <tr th:each="reservation : ${reservations}">
                     <td th:text="${reservation.reservationId}"></td>
-                    <td th:text="${reservation.departureStation}"></td>
-                    <td th:text="${reservation.arrivalStation}"></td>
-                    <td th:text="${#dates.format(reservation.departureDate, 'yyyy-MM-dd HH:mm')}"></td>
-                    <td th:text="${#dates.format(reservation.arrivalDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${reservation.train.departureStation}"></td>
+                    <td th:text="${reservation.train.arrivalStation}"></td>
+                    <td th:text="${#temporals.format(reservation.train.departureTime, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${#temporals.format(reservation.train.arrivalTime, 'yyyy-MM-dd HH:mm')}"></td>
                     <td>
                         <span class="badge badge-reserved" th:text="${reservation.status}">예약완료</span>
                     </td>
