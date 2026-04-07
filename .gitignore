@@ -1,0 +1,13 @@
+# 환경변수 (민감 정보)
+.env
+
+# Gradle
+.gradle/
+build/
+
+# IntelliJ
+.idea/
+*.iml
+
+# OS
+.DS_Store
