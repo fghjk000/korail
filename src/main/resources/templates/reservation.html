@@ -1,122 +1,79 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>기차 목록</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/css/nav.css">
-    <style>
-        main {
-            max-width: 900px;
-            margin: 30px auto;
-            text-align: center;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-            text-align: center;
-        }
-
-        th {
-            background: #007bff;
-            color: white;
-            min-width: 100px;  /* 헤더 칸 크기 최소값 지정 */
-        }
-
-        tr:hover {
-            background: #f1f1f1;
-        }
-
-        .reserve-btn {
-            padding: 8px 12px;
-            background-color: #007bff;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .reserve-btn:hover {
-            background-color: #0056b3;
-        }
-
-        .sold-out {
-            color: red;
-            font-weight: bold;
-        }
-    </style>
+    <title>승차권 예매 - 코레일</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/nav.css">
 </head>
 <body>
 
 <header>
-    <nav>
-        <a href="/" class="logo">홈</a>
-        <a href="/reservation">예약하기</a>
-        <a href="/admin/list">기차 목록</a>
-        <a href="/user">마이페이지</a>
-        <a href="/support">고객센터</a>
-        <a href="/logout">로그아웃</a>
+    <div class="util-bar">
         <a href="/loginForm">로그인</a>
-    </nav>
+        <span class="util-sep">|</span>
+        <a href="/joinForm">회원가입</a>
+        <span class="util-sep">|</span>
+        <a href="/logout">로그아웃</a>
+    </div>
+    <div class="header-inner">
+        <a href="/" class="logo">
+            <div class="logo-mark">K</div>
+            <span class="logo-text">KORAIL</span>
+        </a>
+        <nav class="main-nav">
+            <a href="/">홈</a>
+            <a href="/reservation" class="active">예약하기</a>
+            <a href="/admin/list">기차 목록</a>
+            <a href="/user">마이페이지</a>
+            <a href="/support">고객센터</a>
+            <a href="/reservation" class="nav-cta">승차권 예매</a>
+        </nav>
+    </div>
 </header>
 
-<main>
-    <h1>기차 목록</h1>
+<div class="page-wrap medium">
+    <div class="page-title">승차권 예매</div>
 
-    <table>
-        <thead>
-        <tr>
-            <th>기차 번호</th>
-            <th>기차 유형</th>
-            <th>출발역</th>
-            <th>도착역</th>
-            <th>출발 시간</th>
-            <th>도착 시간</th>
-            <th>좌석 수</th> <!-- 좌석 수 컬럼 추가 -->
-            <th>예약</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- 기차 목록 출력 -->
+    <div class="train-list">
         <th:block th:each="train : ${trains}">
-            <tr>
-                <td th:text="${train.trainNumber}"></td>
-                <td th:text="${train.trainType}"></td>
-                <td th:text="${train.departureStation}"></td>
-                <td th:text="${train.arrivalStation}"></td>
-                <td th:text="${train.departureTime}"></td>
-                <td th:text="${train.arrivalTime}"></td>
-                <td th:text="${train.availableSeats}"></td> <!-- 좌석 수 표시 -->
-                <td>
-                    <!-- 좌석이 남아 있을 경우만 예약 버튼 활성화, 아니면 '매진' 표시 -->
-                    <a th:if="${train.availableSeats > 0}" th:href="@{'/seat-selection?trainId=' + ${train.trainId}}" class="reserve-btn">예약</a>
-                    <span th:if="${train.availableSeats == 0}" class="sold-out">매진</span>
-                </td>
-            </tr>
+            <div class="train-card">
+                <div class="train-type" th:classappend="${train.trainType == 'KTX' ? 'ktx' : ''}" th:text="${train.trainType}">KTX</div>
+                <div class="train-route">
+                    <div>
+                        <div class="station" th:text="${train.departureStation}">서울</div>
+                        <div class="station-time" th:text="${train.departureTime}">08:00</div>
+                    </div>
+                    <div class="route-arrow">→</div>
+                    <div>
+                        <div class="station" th:text="${train.arrivalStation}">부산</div>
+                        <div class="station-time" th:text="${train.arrivalTime}">10:30</div>
+                    </div>
+                </div>
+                <div class="train-meta">
+                    <div class="seat-count">잔여 <span th:text="${train.availableSeats}">50</span>석</div>
+                    <a th:if="${train.availableSeats > 0}"
+                       th:href="@{'/seat-selection?trainId=' + ${train.trainId}}"
+                       class="btn btn-primary">예매하기</a>
+                    <span th:if="${train.availableSeats == 0}" class="badge badge-soldout">매진</span>
+                </div>
+            </div>
         </th:block>
-        </tbody>
-    </table>
-</main>
+    </div>
+</div>
 
 <footer>
-    <p>© 2025 코레일. All rights reserved.</p>
+    <div class="footer-inner">
+        <div>
+            <div class="footer-logo">KORAIL</div>
+            <div style="margin-top:6px;">© 2025 코레일. All rights reserved.</div>
+        </div>
+        <div class="footer-links">
+            <a href="/support">고객센터</a>
+            <a href="/support">이용약관</a>
+        </div>
+    </div>
 </footer>
 
 </body>

@@ -1,13 +1,1 @@
-/* nav.css */
-nav {
-    background-color: #e0e0e0;
-    padding: 10px;
-    text-align: center;
-}
-
-nav a {
-    margin: 0 15px;
-    text-decoration: none;
-    color: #003366;
-    font-weight: bold;
-}
+/* nav.css — style.css에서 통합 관리됨 */

@@ -1,84 +1,122 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>마이페이지 - 코레일 예약 시스템</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css"> <!-- 기존 스타일 -->
-    <link rel="stylesheet" type="text/css" href="/css/nav.css"> <!-- nav 스타일 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지 - 코레일</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/nav.css">
 </head>
 <body>
+
 <header>
-    <nav>
-        <a href="/" class="logo">홈</a>
-        <a href="/reservation">예약하기</a>
-        <a href="/admin/list">기차 목록</a>
-        <a href="/user">마이페이지</a>
-        <a href="/support">고객센터</a>
-        <a href="/logout">로그아웃</a>
+    <div class="util-bar">
         <a href="/loginForm">로그인</a>
-    </nav>
+        <span class="util-sep">|</span>
+        <a href="/logout">로그아웃</a>
+    </div>
+    <div class="header-inner">
+        <a href="/" class="logo">
+            <div class="logo-mark">K</div>
+            <span class="logo-text">KORAIL</span>
+        </a>
+        <nav class="main-nav">
+            <a href="/">홈</a>
+            <a href="/reservation">예약하기</a>
+            <a href="/admin/list">기차 목록</a>
+            <a href="/user" class="active">마이페이지</a>
+            <a href="/support">고객센터</a>
+            <a href="/reservation" class="nav-cta">승차권 예매</a>
+        </nav>
+    </div>
 </header>
-<h1>코레일 예약 시스템</h1>
-<section>
-    <h2>마이페이지</h2>
-    <!-- 로그인한 사용자 이름 동적으로 출력 -->
-    <p>안녕하세요, <strong th:text="${user.username}">홍길동</strong>님! 여기서 예약 내역을 확인하고 관리하실 수 있습니다.</p>
 
-    <!-- 예약 정보 표시 -->
-    <h3>예약 내역</h3>
-    <table>
-        <thead>
-        <tr>
-            <th>예약 번호</th>
-            <th>출발역</th>
-            <th>도착역</th>
-            <th>출발 일시</th>
-            <th>도착 일시</th>
-            <th>상태</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- 예약 내역이 없을 경우 -->
-        <tr th:if="${message != null}">
-            <td colspan="6" style="text-align: center;" th:text="${message}">예약 내역이 없습니다.</td>
-        </tr>
+<div class="page-wrap">
+    <div class="user-profile-card">
+        <div class="user-avatar" th:text="${#strings.substring(user.username, 0, 1)}">홍</div>
+        <div>
+            <h2><span th:text="${user.username}">홍길동</span>님, 안녕하세요!</h2>
+            <p>코레일 예약 시스템 회원입니다.</p>
+        </div>
+    </div>
 
-        <!-- 예약 내역이 있을 경우 -->
-        <tr th:each="reservation : ${reservations}">
-            <td th:text="${reservation.reservationId}"></td>
-            <td th:text="${reservation.departureStation}"></td>
-            <td th:text="${reservation.arrivalStation}"></td>
-            <td th:text="${#dates.format(reservation.departureDate, 'yyyy-MM-dd HH:mm')}"></td>
-            <td th:text="${#dates.format(reservation.arrivalDate, 'yyyy-MM-dd HH:mm')}"></td>
-            <td th:text="${reservation.status}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="page-title">예약 내역</div>
 
-    <!-- 개인 정보 수정 -->
-    <h3>개인 정보 수정</h3>
-    <form th:action="@{/user/{userId}(userId=${user.userId})}" method="POST">
-        <input type="hidden" name="_method" value="PUT"> <!-- PUT 요청을 위한 hidden input -->
+    <div class="table-wrap" style="margin-bottom:40px;">
+        <table>
+            <thead>
+                <tr>
+                    <th>예약 번호</th>
+                    <th>출발역</th>
+                    <th>도착역</th>
+                    <th>출발 일시</th>
+                    <th>도착 일시</th>
+                    <th>상태</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${message != null}">
+                    <td colspan="6" th:text="${message}">예약 내역이 없습니다.</td>
+                </tr>
+                <tr th:each="reservation : ${reservations}">
+                    <td th:text="${reservation.reservationId}"></td>
+                    <td th:text="${reservation.departureStation}"></td>
+                    <td th:text="${reservation.arrivalStation}"></td>
+                    <td th:text="${#dates.format(reservation.departureDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${#dates.format(reservation.arrivalDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td>
+                        <span class="badge badge-reserved" th:text="${reservation.status}">예약완료</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-        <label for="username">아이디:</label>
-        <input type="text" id="username" name="username" th:value="${user.username}" required readonly><br><br>
+    <div class="page-title">개인 정보 수정</div>
 
-        <label for="password">비밀번호:</label>
-        <input type="password" id="password" name="password"><br><br> <!-- 비밀번호는 공백 가능 -->
-
-        <label for="email">이메일:</label>
-        <input type="email" id="email" name="email" th:value="${user.email}" required><br><br>
-
-        <label for="phoneNumber">전화번호:</label>
-        <input type="text" id="phoneNumber" name="phoneNumber" th:value="${user.phoneNumber}" required><br><br>
-
-        <input type="submit" value="수정하기">
-    </form>
-
-</section>
+    <div class="card">
+        <div class="card-body">
+            <form th:action="@{/user/{userId}(userId=${user.userId})}" method="POST">
+                <input type="hidden" name="_method" value="PUT">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="username">아이디</label>
+                        <input type="text" id="username" name="username" th:value="${user.username}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">비밀번호</label>
+                        <input type="password" id="password" name="password" placeholder="변경 시에만 입력">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="email" id="email" name="email" th:value="${user.email}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">전화번호</label>
+                        <input type="text" id="phoneNumber" name="phoneNumber" th:value="${user.phoneNumber}" required>
+                    </div>
+                </div>
+                <div class="text-center mt-16">
+                    <button type="submit" class="btn btn-primary btn-lg">수정하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <footer>
-    <p>&copy; 2025 코레일 예약 시스템. All rights reserved.</p>
+    <div class="footer-inner">
+        <div>
+            <div class="footer-logo">KORAIL</div>
+            <div style="margin-top:6px;">© 2025 코레일. All rights reserved.</div>
+        </div>
+        <div class="footer-links">
+            <a href="/support">고객센터</a>
+        </div>
+    </div>
 </footer>
+
 </body>
 </html>

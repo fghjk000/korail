@@ -6,7 +6,7 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ***REMOVED***
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: korail
     ports:
       - "3307:3306"
@@ -38,9 +38,11 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/korail
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ***REMOVED***
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       SPRING_REDIS_HOST: redis
       SPRING_REDIS_PORT: 6379
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
     ports:
       - "8080:8080"
     networks:

@@ -1,13 +1,11 @@
-FROM openjdk:21-jdk as builder
+FROM eclipse-temurin:21-jdk AS builder
 WORKDIR /app
-
-RUN microdnf install findutils
 
 COPY . .
 
 RUN ./gradlew clean build -x test
 
-FROM openjdk:21-jdk
+FROM eclipse-temurin:21-jdk
 WORKDIR /app
 
 COPY --from=builder /app/build/libs/*.jar app.jar

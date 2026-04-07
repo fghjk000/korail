@@ -2,34 +2,103 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>코레일 예약 시스템 - 홈페이지</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css"> <!-- 기존 스타일 -->
-    <link rel="stylesheet" type="text/css" href="/css/nav.css"> <!-- nav 스타일 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코레일 예약 시스템</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/nav.css">
 </head>
 <body>
-<nav>
-    <a href="/" class="logo">홈</a>
-    <a href="/reservation">예약하기</a>
-    <a href="/admin/list">기차 목록</a>
-    <a href="/user">마이페이지</a>
-    <a href="/support">고객센터</a>
-    <a href="/logout">로그아웃</a>
-    <a href="/loginForm">로그인</a>
-</nav>
+
 <header>
-    <h1>코레일 예약 시스템</h1>
+    <div class="util-bar">
+        <a href="/loginForm">로그인</a>
+        <span class="util-sep">|</span>
+        <a href="/joinForm">회원가입</a>
+        <span class="util-sep">|</span>
+        <a href="/logout">로그아웃</a>
+    </div>
+    <div class="header-inner">
+        <a href="/" class="logo">
+            <div class="logo-mark">K</div>
+            <span class="logo-text">KORAIL</span>
+        </a>
+        <nav class="main-nav">
+            <a href="/" class="active">홈</a>
+            <a href="/reservation">예약하기</a>
+            <a href="/admin/list">기차 목록</a>
+            <a href="/user">마이페이지</a>
+            <a href="/support">고객센터</a>
+            <a href="/reservation" class="nav-cta">승차권 예매</a>
+        </nav>
+    </div>
 </header>
 
+<div class="page-wrap">
+    <div class="hero">
+        <h1>코레일 승차권 예매</h1>
+        <p>전국 어디든, 편리하고 빠르게 기차 여행을 시작하세요.</p>
+        <div class="search-box">
+            <div class="form-group">
+                <label>출발역</label>
+                <input type="text" placeholder="출발역 입력">
+            </div>
+            <div class="form-group">
+                <label>도착역</label>
+                <input type="text" placeholder="도착역 입력">
+            </div>
+            <div class="form-group">
+                <label>출발일</label>
+                <input type="date">
+            </div>
+            <div class="form-group">
+                <label>인원</label>
+                <select>
+                    <option>어른 1명</option>
+                    <option>어른 2명</option>
+                    <option>어른 3명</option>
+                </select>
+            </div>
+            <button class="btn-search" onclick="location.href='/reservation'">조회하기</button>
+        </div>
+    </div>
 
-
-<section>
-    <h2>환영합니다!</h2>
-    <p>코레일 예약 시스템에 오신 것을 환영합니다.</p>
-    <p>원하는 서비스를 좌측 내비게이션 메뉴에서 선택해 주세요.</p>
-</section>
+    <div class="quick-links">
+        <a href="/reservation" class="quick-card">
+            <div class="qc-icon">🚄</div>
+            <div class="qc-label">승차권 예매</div>
+            <div class="qc-sub">기차표 바로 예매</div>
+        </a>
+        <a href="/user" class="quick-card">
+            <div class="qc-icon">📋</div>
+            <div class="qc-label">예약 내역</div>
+            <div class="qc-sub">내 예매 확인</div>
+        </a>
+        <a href="/support" class="quick-card">
+            <div class="qc-icon">💬</div>
+            <div class="qc-label">고객센터</div>
+            <div class="qc-sub">문의 및 도움말</div>
+        </a>
+        <a href="/user" class="quick-card">
+            <div class="qc-icon">👤</div>
+            <div class="qc-label">마이페이지</div>
+            <div class="qc-sub">회원 정보 관리</div>
+        </a>
+    </div>
+</div>
 
 <footer>
-    <p>&copy; 2025 코레일 예약 시스템. All rights reserved.</p>
+    <div class="footer-inner">
+        <div>
+            <div class="footer-logo">KORAIL</div>
+            <div style="margin-top:6px;">© 2025 코레일 예약 시스템. All rights reserved.</div>
+        </div>
+        <div class="footer-links">
+            <a href="/support">고객센터</a>
+            <a href="/support">이용약관</a>
+            <a href="/support">개인정보처리방침</a>
+        </div>
+    </div>
 </footer>
+
 </body>
 </html>

@@ -4,268 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>고객센터 - 코레일</title>
-    <link rel="stylesheet" type="text/css" href="/css/nav.css">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', Arial, sans-serif;
-            background: #f0f2f5;
-            min-height: 100vh;
-        }
-
-        header { background-color: #0044cc; padding: 0 30px; }
-        header nav a {
-            color: white; margin: 0 16px; text-decoration: none;
-            font-size: 15px; line-height: 56px; display: inline-block;
-        }
-        header nav a:hover { text-decoration: underline; }
-
-        .page-wrap { max-width: 860px; margin: 32px auto; padding: 0 16px; }
-
-        /* 히어로 배너 */
-        .hero {
-            background: linear-gradient(135deg, #0044cc, #0066ff);
-            border-radius: 16px;
-            padding: 36px 32px;
-            color: white;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 20px rgba(0,68,204,0.25);
-        }
-        .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
-        .hero p  { font-size: 14px; opacity: 0.85; }
-
-        /* 빠른 연락 카드 */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-            margin-bottom: 24px;
-        }
-        .contact-card {
-            background: white;
-            border-radius: 12px;
-            padding: 22px 18px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-        }
-        .contact-card .icon { font-size: 32px; margin-bottom: 10px; }
-        .contact-card .label { font-size: 13px; color: #888; margin-bottom: 4px; }
-        .contact-card .value { font-size: 17px; font-weight: 800; color: #111; }
-        .contact-card .sub   { font-size: 12px; color: #aaa; margin-top: 4px; }
-
-        /* FAQ */
-        .section-title {
-            font-size: 16px; font-weight: 800; color: #111;
-            margin-bottom: 14px;
-        }
-
-        .faq-list { margin-bottom: 24px; }
-        .faq-item {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-            margin-bottom: 8px;
-            overflow: hidden;
-        }
-        .faq-question {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            color: #111;
-            user-select: none;
-        }
-        .faq-question:hover { background: #f8f9ff; }
-        .faq-question .q-badge {
-            background: #e8f0fe; color: #0044cc;
-            padding: 2px 8px; border-radius: 8px;
-            font-size: 12px; font-weight: 700;
-            margin-right: 10px; flex-shrink: 0;
-        }
-        .faq-question .arrow { color: #aaa; transition: transform 0.2s; }
-        .faq-question.open .arrow { transform: rotate(180deg); }
-        .faq-answer {
-            display: none;
-            padding: 0 20px 16px 20px;
-            font-size: 14px; color: #555; line-height: 1.7;
-            border-top: 1px solid #f0f0f0;
-        }
-        .faq-answer.open { display: block; }
-
-        /* 운영시간 */
-        .hours-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-            padding: 22px 24px;
-            margin-bottom: 24px;
-        }
-        .hours-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #f5f5f5;
-            font-size: 14px;
-        }
-        .hours-row:last-child { border-bottom: none; }
-        .hours-row .day   { color: #555; font-weight: 600; }
-        .hours-row .time  { color: #111; font-weight: 700; }
-        .hours-row .time.closed { color: #aaa; }
-
-        footer {
-            text-align: center; background: #0044cc;
-            padding: 14px; color: white;
-            font-size: 13px; margin-top: 24px;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/nav.css">
 </head>
 <body>
 
 <header>
-    <nav>
-        <a href="/">홈</a>
-        <a href="/reservation">예약하기</a>
-        <a href="/admin/list" sec:authorize="hasRole('ADMIN')">기차 목록</a>
-        <a href="/user">마이페이지</a>
-        <a href="/support">고객센터</a>
-        <a href="/logout" sec:authorize="isAuthenticated()">로그아웃</a>
-        <a href="/loginForm" sec:authorize="!isAuthenticated()">로그인</a>
-    </nav>
+    <div class="util-bar">
+        <a href="/loginForm">로그인</a>
+        <span class="util-sep">|</span>
+        <a href="/joinForm">회원가입</a>
+        <span class="util-sep">|</span>
+        <a href="/logout">로그아웃</a>
+    </div>
+    <div class="header-inner">
+        <a href="/" class="logo">
+            <div class="logo-mark">K</div>
+            <span class="logo-text">KORAIL</span>
+        </a>
+        <nav class="main-nav">
+            <a href="/">홈</a>
+            <a href="/reservation">예약하기</a>
+            <a href="/admin/list">기차 목록</a>
+            <a href="/user">마이페이지</a>
+            <a href="/support" class="active">고객센터</a>
+            <a href="/reservation" class="nav-cta">승차권 예매</a>
+        </nav>
+    </div>
 </header>
 
-<div class="page-wrap">
+<div class="page-wrap medium">
+    <div class="page-title">고객센터</div>
 
-    <!-- 히어로 -->
-    <div class="hero">
-        <h1>🎧 고객센터</h1>
-        <p>코레일 이용 중 불편하신 점이 있으시면 언제든지 문의해 주세요.</p>
-    </div>
-
-    <!-- 빠른 연락 -->
     <div class="contact-grid">
         <div class="contact-card">
-            <div class="icon">📞</div>
-            <div class="label">전화 상담</div>
-            <div class="value">15XX-XXXX</div>
-            <div class="sub">연중무휴 06:00 ~ 23:00</div>
+            <div class="cc-icon">📞</div>
+            <div class="cc-label">전화 문의</div>
+            <div class="cc-value">1544-7788</div>
+            <div class="cc-sub">24시간 운영</div>
         </div>
         <div class="contact-card">
-            <div class="icon">💬</div>
-            <div class="label">카카오톡 채널</div>
-            <div class="value">@코레일</div>
-            <div class="sub">평일 09:00 ~ 18:00</div>
+            <div class="cc-icon">💬</div>
+            <div class="cc-label">카카오톡 채널</div>
+            <div class="cc-value">코레일 Talk</div>
+            <div class="cc-sub">평일 09:00 ~ 18:00</div>
         </div>
         <div class="contact-card">
-            <div class="icon">✉️</div>
-            <div class="label">이메일 문의</div>
-            <div class="value">support@korail.com</div>
-            <div class="sub">영업일 기준 1~2일 내 답변</div>
+            <div class="cc-icon">✉️</div>
+            <div class="cc-label">이메일 문의</div>
+            <div class="cc-value">help@korail.com</div>
+            <div class="cc-sub">1~2일 내 답변</div>
         </div>
     </div>
 
-    <!-- FAQ -->
-    <div class="section-title">자주 묻는 질문</div>
+    <div class="page-title">자주 묻는 질문</div>
+
     <div class="faq-list">
-
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">
-                <span><span class="q-badge">Q</span>예약 후 결제는 언제까지 해야 하나요?</span>
-                <span class="arrow">▼</span>
-            </div>
+        <details class="faq-item">
+            <summary>승차권 예매는 어떻게 하나요?</summary>
             <div class="faq-answer">
-                예약 후 <strong>출발 전까지</strong> 결제를 완료하셔야 합니다. 결제가 완료되지 않으면 예약이 자동으로 취소될 수 있습니다.
+                상단 메뉴의 <strong>승차권 예매</strong>를 클릭하거나 홈 화면의 검색창에 출발역·도착역·날짜를 입력하여 열차를 조회하신 후, 원하는 열차의 <strong>예매하기</strong> 버튼을 누르세요. 좌석을 선택하고 결제를 완료하시면 예매가 완료됩니다.
             </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">
-                <span><span class="q-badge">Q</span>예약 취소 시 환불은 어떻게 되나요?</span>
-                <span class="arrow">▼</span>
-            </div>
+        </details>
+        <details class="faq-item">
+            <summary>예매 취소 및 환불은 어떻게 하나요?</summary>
             <div class="faq-answer">
-                출발 <strong>1일 전까지</strong> 취소 시 전액 환불되며, 당일 취소의 경우 취소 수수료가 발생할 수 있습니다.
-                결제 완료 후 환불은 결제 수단에 따라 <strong>3~5 영업일</strong> 소요됩니다.
+                마이페이지의 예약 내역에서 취소하실 수 있습니다. 출발 1일 전 취소 시 전액 환불, 당일 취소 시에는 위약금이 발생할 수 있습니다.
             </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">
-                <span><span class="q-badge">Q</span>좌석 변경이 가능한가요?</span>
-                <span class="arrow">▼</span>
-            </div>
+        </details>
+        <details class="faq-item">
+            <summary>회원가입 없이도 예매가 가능한가요?</summary>
             <div class="faq-answer">
-                결제 전 <strong>결제 대기</strong> 상태에서는 예약 취소 후 재예약으로 좌석을 변경하실 수 있습니다.
-                결제 완료 후에는 고객센터(<strong>15XX-XXXX</strong>)로 문의해 주세요.
+                현재 서비스는 회원 전용으로 운영되고 있습니다. 간편하게 <strong>구글 계정</strong>으로 소셜 로그인을 이용하실 수 있습니다.
             </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">
-                <span><span class="q-badge">Q</span>비밀번호를 잊어버렸어요.</span>
-                <span class="arrow">▼</span>
-            </div>
+        </details>
+        <details class="faq-item">
+            <summary>비밀번호를 잊어버렸어요.</summary>
             <div class="faq-answer">
-                마이페이지 → 개인정보 수정에서 새 비밀번호로 변경하실 수 있습니다.
-                로그인이 불가능한 경우 고객센터로 본인 확인 후 도움을 받으실 수 있습니다.
+                로그인 페이지 하단의 <strong>비밀번호 찾기</strong>를 이용하시거나, 고객센터(1544-7788)로 문의해 주세요.
             </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">
-                <span><span class="q-badge">Q</span>열차 지연 시 어떻게 되나요?</span>
-                <span class="arrow">▼</span>
-            </div>
+        </details>
+        <details class="faq-item">
+            <summary>구글 로그인 연동은 어떻게 하나요?</summary>
             <div class="faq-answer">
-                열차가 <strong>20분 이상 지연</strong>될 경우 운임의 일부를 보상받으실 수 있습니다.
-                지연 보상은 코레일 고객센터 또는 역 창구에서 신청 가능합니다.
+                로그인 페이지에서 <strong>구글 계정으로 로그인</strong> 버튼을 클릭하시면 별도 회원가입 없이 구글 계정으로 자동 로그인됩니다.
             </div>
-        </div>
-
+        </details>
+        <details class="faq-item">
+            <summary>기차 시간표는 어디서 확인하나요?</summary>
+            <div class="faq-answer">
+                상단 메뉴의 <strong>기차 목록</strong>에서 전체 운행 시간표를 확인하실 수 있습니다.
+            </div>
+        </details>
     </div>
-
-    <!-- 운영시간 -->
-    <div class="section-title">고객센터 운영시간</div>
-    <div class="hours-card">
-        <div class="hours-row">
-            <span class="day">월요일 ~ 금요일</span>
-            <span class="time">09:00 ~ 18:00</span>
-        </div>
-        <div class="hours-row">
-            <span class="day">토요일</span>
-            <span class="time">09:00 ~ 13:00</span>
-        </div>
-        <div class="hours-row">
-            <span class="day">일요일 · 공휴일</span>
-            <span class="time closed">휴무</span>
-        </div>
-        <div class="hours-row">
-            <span class="day">전화 상담 (15XX-XXXX)</span>
-            <span class="time">연중무휴 06:00 ~ 23:00</span>
-        </div>
-    </div>
-
 </div>
 
 <footer>
-    <p>© 2025 코레일. All rights reserved.</p>
+    <div class="footer-inner">
+        <div>
+            <div class="footer-logo">KORAIL</div>
+            <div style="margin-top:6px;">© 2025 코레일. All rights reserved.</div>
+        </div>
+        <div class="footer-links">
+            <a href="/support">이용약관</a>
+            <a href="/support">개인정보처리방침</a>
+        </div>
+    </div>
 </footer>
-
-<script>
-    function toggleFaq(el) {
-        const answer = el.nextElementSibling;
-        const isOpen = answer.classList.contains('open');
-        document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
-        document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('open'));
-        if (!isOpen) {
-            answer.classList.add('open');
-            el.classList.add('open');
-        }
-    }
-</script>
 
 </body>
 </html>

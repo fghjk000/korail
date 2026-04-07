@@ -3,57 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>기차 등록</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css"> <!-- 기존 스타일 -->
-    <link rel="stylesheet" type="text/css" href="/css/nav.css"> <!-- nav 스타일 -->
+    <title>기차 등록 - 코레일</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/nav.css">
 </head>
 <body>
 
 <header>
-    <nav>
-        <a href="/" class="logo">홈</a>
-        <a href="/reservation">예약하기</a>
-        <a href="/admin/list">기차 목록</a>
-        <a href="/user">마이페이지</a>
-        <a href="/support">고객센터</a>
-        <a href="/logout">로그아웃</a>
+    <div class="util-bar">
         <a href="/loginForm">로그인</a>
-    </nav>
+        <span class="util-sep">|</span>
+        <a href="/logout">로그아웃</a>
+    </div>
+    <div class="header-inner">
+        <a href="/" class="logo">
+            <div class="logo-mark">K</div>
+            <span class="logo-text">KORAIL</span>
+        </a>
+        <nav class="main-nav">
+            <a href="/">홈</a>
+            <a href="/reservation">예약하기</a>
+            <a href="/admin/list" class="active">기차 목록</a>
+            <a href="/user">마이페이지</a>
+            <a href="/support">고객센터</a>
+        </nav>
+    </div>
 </header>
 
-<main>
-    <h1>기차 등록</h1>
-    <form action="/admin/trainForm" method="POST">
-        <div>
-            <label for="trainNumber">기차 번호:</label>
-            <input type="text" id="trainNumber" name="trainNumber" required placeholder="기차 번호 입력">
+<div class="page-wrap narrow" style="max-width:600px;">
+    <div class="admin-notice">관리자 전용 — 새 기차 정보를 등록합니다.</div>
+    <div class="page-title">기차 등록</div>
+
+    <div class="card">
+        <div class="card-body">
+            <form action="/admin/trainForm" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="trainNumber">기차 번호</label>
+                        <input type="text" id="trainNumber" name="trainNumber" placeholder="예: KTX 101" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="trainType">기차 종류</label>
+                        <input type="text" id="trainType" name="trainType" placeholder="예: KTX, ITX" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="departureStation">출발역</label>
+                        <input type="text" id="departureStation" name="departureStation" placeholder="출발역" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="arrivalStation">도착역</label>
+                        <input type="text" id="arrivalStation" name="arrivalStation" placeholder="도착역" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="departureTime">출발 시간</label>
+                        <input type="datetime-local" id="departureTime" name="departureTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="arrivalTime">도착 시간</label>
+                        <input type="datetime-local" id="arrivalTime" name="arrivalTime" required>
+                    </div>
+                </div>
+                <div class="form-row mt-16">
+                    <a href="/admin/list" class="btn btn-secondary btn-lg text-center">취소</a>
+                    <button type="submit" class="btn btn-primary btn-lg">등록하기</button>
+                </div>
+            </form>
         </div>
-        <div>
-            <label for="trainType">기차 종류:</label>
-            <input type="text" id="trainType" name="trainType" required placeholder="기차 종류 입력">
-        </div>
-        <div>
-            <label for="departureStation">출발역:</label>
-            <input type="text" id="departureStation" name="departureStation" required placeholder="출발역 입력">
-        </div>
-        <div>
-            <label for="arrivalStation">도착역:</label>
-            <input type="text" id="arrivalStation" name="arrivalStation" required placeholder="도착역 입력">
-        </div>
-        <div>
-            <label for="departureTime">출발 시간:</label>
-            <input type="datetime-local" id="departureTime" name="departureTime" required>
-        </div>
-        <div>
-            <label for="arrivalTime">도착 시간:</label>
-            <input type="datetime-local" id="arrivalTime" name="arrivalTime" required>
-        </div>
-        <button type="submit">기차 등록</button>
-    </form>
-</main>
+    </div>
+</div>
 
 <footer>
-    <p>© 2025 코레일. All rights reserved.</p>
+    <div class="footer-inner">
+        <div class="footer-logo">KORAIL</div>
+        <div>© 2025 코레일. All rights reserved.</div>
+    </div>
 </footer>
 
 </body>

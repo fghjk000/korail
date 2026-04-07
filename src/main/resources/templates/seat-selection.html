@@ -1,175 +1,105 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>좌석 선택</title>
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <link rel="stylesheet" type="text/css" href="/css/nav.css">
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f4f9;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #007bff;
-      padding: 20px 0;
-      color: white;
-      text-align: center;
-    }
-
-    header nav a {
-      color: white;
-      margin: 0 20px;
-      text-decoration: none;
-      font-size: 18px;
-    }
-
-    header nav a:hover {
-      text-decoration: underline;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 30px auto;
-      padding: 20px;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 10px;
-      font-size: 28px;
-      color: #333;
-    }
-
-    h2 {
-      font-size: 22px;
-      color: #555;
-    }
-
-    h3 {
-      font-size: 18px;
-      color: #777;
-      margin-bottom: 20px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-    }
-
-    th, td {
-      padding: 12px;
-      text-align: center;
-      border-bottom: 1px solid #ddd;
-    }
-
-    th {
-      background-color: #007bff;
-      color: white;
-    }
-
-    tr:hover {
-      background-color: #f1f1f1;
-    }
-
-    .seat-button {
-      padding: 8px 12px;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .seat-button:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-
-    .seat-button:hover:enabled {
-      background-color: #218838;
-    }
-
-    .sold-out {
-      color: #dc3545;
-      font-weight: bold;
-    }
-
-    footer {
-      text-align: center;
-      background-color: #007bff;
-      padding: 10px 0;
-      color: white;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>좌석 선택 - 코레일</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/nav.css">
 </head>
-
 <body>
 
 <header>
-  <nav>
-    <a href="/" class="logo">홈</a>
-    <a href="/reservation">예약하기</a>
-    <a href="/admin/list">기차 목록</a>
-    <a href="/user">마이페이지</a>
-    <a href="/support">고객센터</a>
-    <a href="/logout">로그아웃</a>
-    <a href="/loginForm">로그인</a>
-  </nav>
+    <div class="util-bar">
+        <a href="/loginForm">로그인</a>
+        <span class="util-sep">|</span>
+        <a href="/logout">로그아웃</a>
+    </div>
+    <div class="header-inner">
+        <a href="/" class="logo">
+            <div class="logo-mark">K</div>
+            <span class="logo-text">KORAIL</span>
+        </a>
+        <nav class="main-nav">
+            <a href="/">홈</a>
+            <a href="/reservation" class="active">예약하기</a>
+            <a href="/admin/list">기차 목록</a>
+            <a href="/user">마이페이지</a>
+            <a href="/support">고객센터</a>
+            <a href="/reservation" class="nav-cta">승차권 예매</a>
+        </nav>
+    </div>
 </header>
 
-<main>
-  <h1>좌석 선택</h1>
-  <h2>기차 번호: <span th:text="${trainId}"></span></h2>
-  <h3>출발역: <span th:text="${train.departureStation}"></span> | 도착역: <span th:text="${train.arrivalStation}"></span></h3>
+<div class="page-wrap medium">
+    <div class="page-title">좌석 선택</div>
 
-  <form action="/seat-selection/reserve" method="post">
-    <input type="hidden" name="trainId" th:value="${trainId}">
-
-    <table>
-      <thead>
-      <tr>
-        <th>좌석 번호</th>
-        <th>상태</th>
-        <th>예약</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="seat : ${availableSeats}">
-        <td th:text="${seat.seatNumber}"></td>
-        <td>
-          <span th:text="${seat.status}"></span>
-          <span th:if="${#strings.trim(seat.status) != 'AVAILABLE'}" class="sold-out">매진</span> <!-- 상태가 AVAILABLE이 아니면 매진 표시 -->
-        </td>
-        <td>
-          <input type="checkbox" th:if="${#strings.trim(seat.status) == 'AVAILABLE'}" name="selectedSeatIds" th:value="${seat.seatId}" class="seat-button">
-          <span th:if="${#strings.trim(seat.status) != 'AVAILABLE'}">매진</span>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-
-    <div style="text-align: center; margin-top: 20px;">
-      <button type="submit" class="seat-button">선택한 좌석 예약하기</button>
+    <div class="seat-info-card">
+        <div class="info-item">
+            <label>기차 번호</label>
+            <span th:text="${trainId}">101</span>
+        </div>
+        <div class="info-item">
+            <label>출발역</label>
+            <span th:text="${train.departureStation}">서울</span>
+        </div>
+        <div class="info-item">
+            <label>도착역</label>
+            <span th:text="${train.arrivalStation}">부산</span>
+        </div>
     </div>
-  </form>
-</main>
+
+    <div class="seat-legend">
+        <div class="leg-item"><div class="dot dot-available"></div> 예매 가능</div>
+        <div class="leg-item"><div class="dot dot-reserved"></div> 매진</div>
+        <div class="leg-item"><div class="dot dot-selected"></div> 선택됨</div>
+    </div>
+
+    <form action="/seat-selection/reserve" method="post" id="seatForm">
+        <input type="hidden" name="trainId" th:value="${trainId}">
+
+        <div class="seat-grid">
+            <th:block th:each="seat : ${availableSeats}">
+                <th:block th:if="${#strings.trim(seat.status) == 'AVAILABLE'}">
+                    <label style="cursor:pointer;">
+                        <input type="checkbox" name="selectedSeatIds" th:value="${seat.seatId}"
+                               style="display:none;"
+                               onchange="toggleSeat(this)">
+                        <div class="seat-btn" th:id="'seat-' + ${seat.seatId}" th:text="${seat.seatNumber}">1A</div>
+                    </label>
+                </th:block>
+                <th:block th:if="${#strings.trim(seat.status) != 'AVAILABLE'}">
+                    <div class="seat-btn reserved" th:text="${seat.seatNumber}">1B</div>
+                </th:block>
+            </th:block>
+        </div>
+
+        <div class="text-center mt-24">
+            <button type="submit" class="btn btn-danger btn-lg">선택한 좌석 예매하기</button>
+        </div>
+    </form>
+</div>
 
 <footer>
-  <p>© 2025 코레일. All rights reserved.</p>
+    <div class="footer-inner">
+        <div>
+            <div class="footer-logo">KORAIL</div>
+            <div style="margin-top:6px;">© 2025 코레일. All rights reserved.</div>
+        </div>
+    </div>
 </footer>
+
+<script>
+    function toggleSeat(checkbox) {
+        const seatDiv = document.getElementById('seat-' + checkbox.value);
+        if (!seatDiv) return;
+        if (checkbox.checked) {
+            seatDiv.classList.add('selected');
+        } else {
+            seatDiv.classList.remove('selected');
+        }
+    }
+</script>
 
 </body>
 </html>
